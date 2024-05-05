@@ -1,33 +1,58 @@
-#include <iostream>
-int n = 5;
-int p[10] = {3, 3, 2, 5, 1};
-int w[10] = {10, 15, 10, 12, 8};
-int W = 10;
-int main(){
-   int cur_w;
-   float tot_v;
-   int i, maxi;
-   int used[10];
-   for (i = 0; i < n; ++i)
-      used[i] = 0;
-   cur_w = W;
-   while (cur_w > 0) {
-      maxi = -1;
-      for (i = 0; i < n; ++i)
-         if ((used[i] == 0) &&
-               ((maxi == -1) || ((float)w[i]/p[i] > (float)w[maxi]/p[maxi])))
-            maxi = i;
-      used[maxi] = 1;
-      cur_w -= p[maxi];
-      tot_v += w[maxi];
-      if (cur_w >= 0)
-         printf("Added object %d (%d, %d) completely in the bag. Space left: %d.\n", maxi + 1, w[maxi], p[maxi], cur_w);
-      else {
-         printf("Added %d%% (%d, %d) of object %d in the bag.\n", (int)((1 + (float)cur_w/p[maxi]) * 100), w[maxi], p[maxi], maxi + 1);
-         tot_v -= w[maxi];
-         tot_v += (1 + (float)cur_w/p[maxi]) * w[maxi];
-      }
-   }
-   printf("Filled the bag with objects worth %.2f.\n", tot_v);
-   return 0;
+#include <bits/stdc++.h> 
+using namespace std; 
+
+void maxProfit(vector<int> profit, 
+			vector<int> weight, int N) 
+{ 
+
+	int numOfElements = profit.size(); 
+	int i; 
+
+	multimap<double, int> ratio; 
+
+	double max_profit = 0; 
+	for (i = 0; i < numOfElements; i++) { 
+
+		ratio.insert(make_pair( 
+			(double)profit[i] / weight[i], i)); 
+	} 
+
+	multimap<double, int>::reverse_iterator it; 
+
+	for (it = ratio.rbegin(); it != ratio.rend(); 
+		it++) { 
+
+		double fraction = (double)N / weight[it->second]; 
+
+		if (N >= 0 
+			&& N >= weight[it->second]) { 
+ 
+			max_profit += profit[it->second]; 
+
+			N -= weight[it->second]; 
+		} 
+
+		else if (N < weight[it->second]) { 
+			max_profit += fraction 
+						* profit[it->second]; 
+			break; 
+		} 
+	} 
+
+	cout << "Maximum profit earned is:"
+		<< max_profit; 
+} 
+
+int main() 
+{ 
+	int size = 4; 
+
+	vector<int> profit(size), weight(size); 
+	profit[0] = 150, profit[1] = 480, 
+	profit[2] = 20, profit[3] = 150; 
+
+	weight[0] = 40, weight[1] = 40, 
+	weight[2] = 20, weight[3] = 25; 
+	int N = 60; 
+	maxProfit(profit, weight, N); 
 }
