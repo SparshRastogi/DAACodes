@@ -16,4 +16,9 @@ int maxSubArray(vector<int>& nums) {
         }
     return max;
     }
-};
+int main() { 
+	vector<int> nums = { 2, 3, 4, 5, 7 }; 
+	int max_sum = maxSubArray(nums); 
+	cout << "Maximum contiguous sum is " << max_sum; 
+	return 0; 
+} 
