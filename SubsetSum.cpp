@@ -1,13 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool flag = 0;
-void PrintSubsetSum(int i, int n, int set[], int targetSum,
+void PrintSubsetSum(int i, int n, vector<int> set, int targetSum,
 					vector<int>& subset)
 {
 	if (targetSum == 0) {
 
-		flag = 1;
 		cout << "[ ";
 		for (int i = 0; i < subset.size(); i++) {
 			cout << subset[i] << " ";
@@ -35,14 +33,13 @@ void PrintSubsetSum(int i, int n, int set[], int targetSum,
 
 int main()
 {
-	int set[] = { 1, 2, 1 };
+	vector<int> set = { 1, 2, 1,2,0,3 };
 	int sum = 3;
-	int n = sizeof(set) / sizeof(set[0]);
+	int n = set.size();
 	vector<int> subset;
 	cout << "Output 1:" << endl;
 	PrintSubsetSum(0, n, set, sum, subset);
 	cout << endl;
-	flag = 0;
 
 	return 0;
 }
