@@ -1,5 +1,5 @@
 using namespace std; 
-
+#include <bits/stdc++.h>
 void SelectActivities(vector<int> s, vector<int> f) 
 { 
 	vector<pair<int, int> > ans; 
@@ -37,8 +37,8 @@ void SelectActivities(vector<int> s, vector<int> f)
 
 int main() 
 { 
-	vector<int> s = { 1, 3, 0, 5, 8, 5 }; 
-	vector<int> f = { 2, 4, 6, 7, 9, 9 }; 
+	vector<int> s = { 1, 3, 0, 0, 8, 5 }; 
+	vector<int> f = { 2, 8, 3, 1, 9, 6 }; 
 
 	SelectActivities(s, f); 
 
