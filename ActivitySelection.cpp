@@ -1,29 +1,48 @@
-#include <bits/stdc++.h> 
 using namespace std; 
 
-void printMaxActivities(int s[], int f[], int n) 
+void SelectActivities(vector<int> s, vector<int> f) 
 { 
-	int i, j; 
+	vector<pair<int, int> > ans; 
 
-	cout << "Following activities are selected" << endl; 
+	priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > p; 
 
-	i = 0; 
-	cout << i << " "; 
+	for (int i = 0; i < s.size(); i++) { 
+		// Pushing elements in priority queue where the key 
+		// is f[i] 
+		p.push(make_pair(f[i], s[i])); 
+	} 
 
-	for (j = 1; j < n; j++) { 
+	auto it = p.top(); 
+	int start = it.second; 
+	int end = it.first; 
+	p.pop(); 
+	ans.push_back(make_pair(start, end)); 
 
-		if (s[j] >= f[i]) { 
-			cout << j << " "; 
-			i = j; 
+	while (!p.empty()) { 
+		auto itr = p.top(); 
+		p.pop(); 
+		if (itr.second >= end) { 
+			start = itr.second; 
+			end = itr.first; 
+			ans.push_back(make_pair(start, end)); 
 		} 
+	} 
+	cout << "Following Activities should be selected. "
+		<< endl 
+		<< endl; 
+
+	for (auto itr = ans.begin(); itr != ans.end(); itr++) { 
+		cout << "Activity started at " << (*itr).first 
+			<< " and ends at " << (*itr).second << endl; 
 	} 
 } 
 
 int main() 
 { 
-	int s[] = { 1, 3, 0, 5, 8, 5 }; 
-	int f[] = { 2, 4, 6, 7, 9, 9 }; 
-	int n = sizeof(s) / sizeof(s[0]); 
-	printMaxActivities(s, f, n); 
+	vector<int> s = { 1, 3, 0, 5, 8, 5 }; 
+	vector<int> f = { 2, 4, 6, 7, 9, 9 }; 
+
+	SelectActivities(s, f); 
+
 	return 0; 
-} 
+}
