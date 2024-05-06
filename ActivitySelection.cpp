@@ -7,8 +7,6 @@ void SelectActivities(vector<int> s, vector<int> f)
 	priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > p; 
 
 	for (int i = 0; i < s.size(); i++) { 
-		// Pushing elements in priority queue where the key 
-		// is f[i] 
 		p.push(make_pair(f[i], s[i])); 
 	} 
 
